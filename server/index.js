@@ -1,19 +1,21 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const socketio = require('socket.io');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { Server } from 'http';
+import { Server as SocketIO } from 'socket.io';
+
+dotenv.config();
 
 const app = express();
-const server = require('http').Server(app);
-const io = socketio(server, {
+const server = new Server(app);
+const io = new SocketIO(server, {
   cors: {
     origin: '*', // Enable CORS for all origins for Socket.IO
     methods: ['GET', 'POST'], // Specify allowed methods
   },
 });
 
-dotenv.config();
 const port = process.env.PORT || 3001;
 
 // Connect to MongoDB
@@ -27,9 +29,6 @@ connection.once('open', () => {
 app.use(cors({ origin: '*' })); // Enable CORS for all origins for Express
 app.use(express.json());
 
-// API Routes
-// const messagesRouter = require('./routes/messages');
-// app.use('/messages', messagesRouter);
 
 // Start server
 server.listen(port, () => {
