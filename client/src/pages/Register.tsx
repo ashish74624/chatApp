@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from '@hookform/resolvers/zod';
 import AuthPageSVG from '@/components/AuthPageSVG';
 import Input from '@/components/AuthPage/Input';
+import AuthLabel from '@/components/AuthPage/AuthLabel';
+import AuthButton from '@/components/AuthPage/AuthButton';
 const backend = import.meta.env.VITE_BACKEND
 
 const schema = z.object({
@@ -53,28 +55,22 @@ export default function Register() {
             <div className="grid md:grid-cols-2 font-GraphikBlack w-[80%] gap-3 ">
               <div className="relative z-0 w-full mb-3 md:mb-6 group">
                 <Input {...register('firstName')} name="firstName" id="firstName" />
-
-                <label htmlFor="firstName" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#0FADFF] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
+                <AuthLabel text='First name' htmlFor='firstName' />
               </div>
               <div className="relative z-0 w-full mb-3 md:mb-6 group">
                 <Input {...register('lastName')} name="lastName" id="lastName" />
-
-                <label htmlFor="lastName" className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#0FADFF] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
+                <AuthLabel text='Last Name' htmlFor='lastName' />
               </div>
             </div>
             <div className="relative z-0 w-[80%] mb-5 group font-GraphikBlack">
               <Input {...register('email')} name="email" id="email" type="email" />
-
-              <label htmlFor="email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-[#0FADFF] peer-focus:dark:text-[#0FADFF] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+              <AuthLabel text='Email' htmlFor='email' />
             </div>
             <div className="relative z-0 w-[80%] mb-5 group font-GraphikBlack">
               <Input {...register("password")} type="password" name="password" id="password" />
-
-              <label htmlFor="password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-[#0FADFF] peer-focus:dark:text-[#0FADFF] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+              <AuthLabel htmlFor='password' text='Password' />
             </div>
-            <button disabled={isSubmitting} className="bg-[#0FADFF] mt-2 text-white px-16 rounded-full py-2 font-GraphikBlack">
-              {isSubmitting ? 'Loading...' : "Submit"}
-            </button>
+            <AuthButton isSubmitting={isSubmitting} />
             <p className=" text-sm font-meduim font-GraphikBlack text-black mt-2">Already have an account ?
               <Link to={'/login'}><span className="text-[#0FADFF]"> Log in</span> </Link> </p>
             {errors.root && <div className='text-red-500 text-sm font-GraphikBlack'>{errors.root?.message}</div>}
