@@ -35,3 +35,26 @@ const login =async(req,res)=>{
         res.status(500).json({message:"Server unavailable at the momemt , plz refresh"});
     }
 }
+
+
+const register = async(req,res)=>{
+    try {
+        const {email , password,name } = req.body;
+        const existUser= await User.findOne({email});
+        if(existUser){
+            res.status(409).json({message:"User with this email already exist"});
+        }
+
+        const user = await User.create({email , password,name });
+        const token = createToken(user);
+        res.cookie("token",token,{
+            withCredentials:true,
+            httpOnly:false
+        })
+
+        res.status(201).json({ message: "User signed in successfully"});
+    } catch (error) {
+        res.status(500).json({message:"Server unavailable at the momemt , plz refresh"});
+    }
+}
+
