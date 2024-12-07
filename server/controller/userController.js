@@ -2,7 +2,7 @@ import User from "../models/UserSchema";
 import bcrypt from "bcryptjs"
 import createToken from "../util/tokenCreation";
 
-const login =async(req,res)=>{
+export const login =async(req,res)=>{
     try {
         const {email,password}= req.body;
         
@@ -37,7 +37,7 @@ const login =async(req,res)=>{
 }
 
 
-const register = async(req,res)=>{
+export const register = async(req,res)=>{
     try {
         const {email , password,name } = req.body;
         const existUser= await User.findOne({email});
@@ -58,3 +58,4 @@ const register = async(req,res)=>{
     }
 }
 
+export default { login, signup };
