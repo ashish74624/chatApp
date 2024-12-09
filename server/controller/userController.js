@@ -39,13 +39,13 @@ export const login =async(req,res)=>{
 
 export const register = async(req,res)=>{
     try {
-        const {email , password,name } = req.body;
+        const {email , password,name, firstName, lastName , username } = req.body;
         const existUser= await User.findOne({email});
         if(existUser){
             return res.status(409).json({message:"User with this email already exist"});
         }
 
-        const user = await User.create({email , password,name });
+        const user = await User.create({email , password,name,  firstName, lastName , username });
         const token = createToken(user);
         res.cookie("token",token,{
             withCredentials:true,
